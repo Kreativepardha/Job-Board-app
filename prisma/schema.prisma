@@ -6,7 +6,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
 }
 
 datasource db {
@@ -14,6 +13,10 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+generator seed {
+  provider = "ts-node"
+  output   = "./seed.ts"
+}
 
 model Job {
   id          Int           @id @default(autoincrement())
