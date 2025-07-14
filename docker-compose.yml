@@ -1,6 +1,6 @@
 services:
   db:
-    image: postgres:15
+    image: postgres:16
     restart: always
     container_name: jobboard_db
     ports:
@@ -11,19 +11,6 @@ services:
       POSTGRES_DB: jobboard
     volumes:
       - db-data:/var/lib/postgresql/data
-
-  backend:
-    build: .
-    container_name: jobboard_backend
-    ports:
-      - '5000:5000'
-    depends_on:
-      - db
-    environment:
-      DATABASE_URL: postgres://postgres:postgres@db:5432/jobboard
-    command: sh -c "npx prisma migrate deploy && npx ts-node prisma/seed.ts && node dist/server.js"
-    volumes:
-      - .:/app
 
 volumes:
   db-data:
